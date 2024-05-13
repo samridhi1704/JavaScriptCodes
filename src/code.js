@@ -75,9 +75,27 @@ console.log(filteredArray);
 // 3. Reduce : used in data manipulation whcih reduces an array to a single value
 
 let reduceArray = [15.5, 2.3, 1.1, 4.7];
-let sumArray = 0;
+// to store the sum 
+let reduceA =0;
+function customReduce(arr , callback )
+{
+    let sumArray = 0;
+    for (let i = 0; i < arr.length; i++) {
+       sumArray = callback(reduceA, arr[i]);
+   }
 
-// Looping through the array and add rounded numbers to the sum
+   return sumArray;
+ }
+
+// inbuild function
+/*
+ function getSum(total, num) {
+     return total + Math.round(num);
+ } */
+
+ function getSum(total , num)
+ {
+   let nums =0;
 for (let i = 0; i < reduceArray.length; i++)
 {
     let roundedNum = 0;
@@ -94,24 +112,44 @@ for (let i = 0; i < reduceArray.length; i++)
     }
 
     // Add the rounded number to the sum
-    sumArray += roundedNum;
+    nums += roundedNum;
 }
+  return total+nums;
+}
+
+///Store the sum
+reduceA = customReduce(reduceArray ,getSum);
 //output
-console.log(sumArray);
+console.log(reduceA);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 4. forEach : method calls a function for each element in an array.
 
-let sumForEach = 0;
-let numForEach = [65, 44, 12, 4];
 
-// loop through the array and add each element to the sum
-
-for (let i = 0; i < numForEach.length; i++)
+function customForEach(arr, callback)
  {
-    sumForEach += numForEach[i];
+   let sumForEach = 0;
+   // loop through the array and add each element to the sum
+
+    for (let i = 0; i < arr.length; i++)
+    {
+        sumForEach += callback(arr[i]);
+    }
+    return sumForEach;
 }
 
+let numForEach = [65, 44, 12, 4];
+
+//call the function
+/*
+let totalSum = customForEach(numForEach, function(num)
+{
+    return num;
+});
+*/
+//using arrow Function
+
+let totalSum = customForEach(numForEach , num => num);
 //output
-console.log(sumForEach);
+console.log(totalSum);
